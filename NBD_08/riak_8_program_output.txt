@@ -1,0 +1,10 @@
+Start NBD_8
+1) Add object completed
+2) Get object completed with res: {u'brand': u'Volvo', u'mileage': 50000, u'model': u'XC60'}
+3) Update object completed
+4) Get object completed with res: {u'brand': u'Volvo', u'mileage': 100000, u'model': u'XC60'}
+5) Delete object completed
+6) Get object completed with res: None
+7) Is object exists in DB: False
+End NBD_8
+Process finished with exit code 0

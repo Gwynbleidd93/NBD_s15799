@@ -1,0 +1,41 @@
+1. MATCH (movie:Movie) RETURN movie
+2. MATCH (hugoWeaving:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(hugoWeavingMovies) RETURN hugoWeaving,hugoWeavingMovies
+3. MATCH (hugo:Person {name:"Hugo Weaving"})-[:ACTED_IN]->(m)<-[:DIRECTED]-(directors) RETURN directors
+4. MATCH (hugo:Person {name:"Hugo Weaving"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors) RETURN coActors
+5. MATCH (movie:Movie {title:"The Matrix"})<-[:ACTED_IN]-(actors)-[:ACTED_IN]->(otherMoviesOfMatrixActors) RETURN otherMoviesOfMatrixActors
+6. MATCH (actor:Person)-[relation:ACTED_IN]->(actorMovies) WITH actor, count(relation) AS movieCount RETURN actor.name, movieCount
+7. MATCH (p:Person)-[:DIRECTED]->(movie)<-[:WROTE]-(p:Person) RETURN p.name, movie.title
+8. MATCH (keanu:Person {name: "Keanu Reeves"})-[:ACTED_IN]->(movies)<-[:ACTED_IN]-(hugo:Person {name: "Hugo Weaving"}) RETURN movies
+
+9.1
+CREATE
+    (capitanAmerica:Movie {title: "Captain America: The First Avenger", released: 2011, tagline: "Steve Rogers, a rejected military soldier" }),
+    (capitanAmericaDirector:Person {name: "Joe Johnston", born: 1960 }),
+    (capitanAmericaWriter_1:Person {name: "Christopher Markus", born: 1970 }),
+    (capitanAmericaWriter_2:Person {name: "Stephen McFeely", born: 1970 }),
+    (capitanAmericaWriter_3:Person {name: "Joe Simon", born: 1913 }),
+    (capitanAmericaStar_1:Person {name: "Chris Evans", born: 1981 }),
+    (capitanAmericaStar_2:Person {name: "Samuel L. Jackson", born: 1948 }),
+    (capitanAmericaStar_3:Person {name: "Hugo Weaving", born: 1960 })
+
+9.2
+MATCH
+    (capitanAmerica:Movie {title:"Captain America: The First Avenger"}),
+    (director:Person {name:"Joe Johnston"}),
+    (writer_1:Person {name:"Christopher Markus"}),
+    (writer_2:Person {name:"Stephen McFeely"}),
+    (writer_3:Person {name:"Joe Simon"}),
+    (star_1:Person {name:"Chris Evans"}),
+    (star_2:Person {name:"Hugo Weaving"}),
+    (star_3:Person {name:"Samuel L. Jackson"})
+CREATE
+    (director)-[r:DIRECTED]->(capitanAmerica),
+    (writer_1)-[r_writer1:WROTE]->(capitanAmerica),
+    (writer_2)-[r_writer2:WROTE]->(capitanAmerica),
+    (writer_3)-[r_writer3:WROTE]->(capitanAmerica),
+    (star_1)-[r_star1:ACTED_IN {roles: "Captain America"}]->(capitanAmerica),
+    (star_2)-[r_star2:ACTED_IN {roles: "Johann Schmidt"}]->(capitanAmerica),
+    (star_3)-[r_star3:ACTED_IN {roles: "Nick Fury"}]->(capitanAmerica)
+
+9.3
+MATCH (capitanAmerica:Movie {title:"Captain America: The First Avenger"})-[r]-(otherNodes) RETURN capitanAmerica, r, otherNodes

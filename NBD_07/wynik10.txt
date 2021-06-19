@@ -1,0 +1,19 @@
+$ curl -XDELETE -i http://localhost:8098/buckets/s15799/keys/BP43cDmBsajlNePiFrg2lK6Edb6
+HTTP/1.1 204 No Content
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Date: Sat, 12 Jun 2021 11:07:32 GMT
+Content-Type: application/json
+Content-Length: 0
+
+
+Kontrola:
+$ curl –XGET -i http://localhost:8098/buckets/s15799/keys/BP43cDmBsajlNePiFrg2lK6Edb6
+curl: (6) Could not resolve host: –XGET
+HTTP/1.1 404 Object Not Found
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Date: Sat, 12 Jun 2021 11:08:06 GMT
+Content-Type: text/plain
+Content-Length: 10
+
+not found

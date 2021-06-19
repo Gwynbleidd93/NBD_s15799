@@ -1,0 +1,226 @@
+﻿[
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 268,
+"start": 186,
+"end": 179,
+"type": "ACTED_IN",
+"properties": {
+"roles": "Johann Schmidt"
+      }
+    },
+    "otherNodes": {
+"identity": 186,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Hugo Weaving",
+"born": 1960
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 265,
+"start": 182,
+"end": 179,
+"type": "WROTE",
+"properties": {
+
+      }
+    },
+    "otherNodes": {
+"identity": 182,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Stephen McFeely",
+"born": 1970
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 267,
+"start": 184,
+"end": 179,
+"type": "ACTED_IN",
+"properties": {
+"roles": "Captain America"
+      }
+    },
+    "otherNodes": {
+"identity": 184,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Chris Evans",
+"born": 1981
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 264,
+"start": 181,
+"end": 179,
+"type": "WROTE",
+"properties": {
+
+      }
+    },
+    "otherNodes": {
+"identity": 181,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Christopher Markus",
+"born": 1970
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 269,
+"start": 185,
+"end": 179,
+"type": "ACTED_IN",
+"properties": {
+"roles": "Nick Fury"
+      }
+    },
+    "otherNodes": {
+"identity": 185,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Samuel L. Jackson",
+"born": 1948
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 266,
+"start": 183,
+"end": 179,
+"type": "WROTE",
+"properties": {
+
+      }
+    },
+    "otherNodes": {
+"identity": 183,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Joe Simon",
+"born": 1913
+      }
+    }
+  },
+  {
+    "capitanAmerica": {
+"identity": 179,
+"labels": [
+        "Movie"
+      ],
+"properties": {
+"tagline": "Steve Rogers, a rejected military soldier",
+"title": "Captain America: The First Avenger",
+"released": 2011
+      }
+    },
+    "r": {
+"identity": 263,
+"start": 180,
+"end": 179,
+"type": "DIRECTED",
+"properties": {
+
+      }
+    },
+    "otherNodes": {
+"identity": 180,
+"labels": [
+        "Person"
+      ],
+"properties": {
+"name": "Joe Johnston",
+"born": 1960
+      }
+    }
+  }
+]

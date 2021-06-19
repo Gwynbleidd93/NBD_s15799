@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvj8Vp2cHEUpkzWNlyOWyvMWXBQA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Link: </buckets/s15799>; rel="up"
+Last-Modified: Sat, 12 Jun 2021 10:37:33 GMT
+ETag: "1GNUUPti2zmBaV3plAggsZ"
+Date: Sat, 12 Jun 2021 10:42:08 GMT
+Content-Type: application/json
+Content-Length: 75
+
+{"brand": "Kia", "model": "Ceed",  "milage": 120000, "number_of_owners": 3}

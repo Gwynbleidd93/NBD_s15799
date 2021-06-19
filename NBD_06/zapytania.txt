@@ -1,0 +1,110 @@
+1.
+MATCH (startPoint:town { name:"Darjeeling" }),(endPoint:peak { name:"Sandakphu" })
+WITH startPoint, endPoint
+MATCH path = allShortestPaths((startPoint)-[*..5]-(endPoint))
+RETURN path
+
+2.
+MATCH (startPoint:town { name:"Darjeeling" }),(endPoint:peak { name:"Sandakphu" })
+WITH startPoint, endPoint
+MATCH path = allShortestPaths((startPoint)-[*..5]-(endPoint))
+WHERE ALL(rel IN relationships(path) WHERE rel.winter = "true")
+RETURN path
+
+3.
+MATCH path = ((startPoint:town { name:"Darjeeling" })-[r*..5]->(endPoint:peak { name:"Sandakphu" }))
+WITH path, REDUCE(pathSum = 0, relation IN RELATIONSHIPS(path) | pathSum + relation.distance) AS path_total_distance
+RETURN path, path_total_distance
+ORDER BY path_total_distance
+
+4.
+MATCH (flight:Flight)-[rel:ORIGIN]->(airport:Airport)
+WITH airport, count(flight) as originFlightsCount
+RETURN airport, originFlightsCount
+ORDER BY originFlightsCount DESC
+
+5.
+MATCH (ticket:Ticket)-[rel:ASSIGN]->(flight:Flight)
+WITH MIN(ticket.price) as min_price, flight
+SET flight.min_price = min_price
+
+
+MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
+WITH flight, rel, la_airport
+MATCH path = ((flight)-[r*..3]-(destAirport:Airport))
+WITH NODES(path) AS pathNodes, path, la_airport, destAirport
+UNWIND pathNodes AS nodes
+WITH nodes, path, la_airport, destAirport
+WHERE 'Flight' IN LABELS(nodes)
+WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
+WHERE total_flights_min_cost < 3000
+RETURN destAirport, path, total_flights_min_cost
+ORDER BY total_flights_min_cost
+
+
+
+6.
+MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
+WITH flight, rel, la_airport
+MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
+WITH NODES(path) AS pathNodes, path, la_airport, destAirport
+UNWIND pathNodes AS nodes
+WITH nodes, path, la_airport, destAirport
+WHERE 'Flight' IN LABELS(nodes)
+WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
+RETURN destAirport, path, la_airport, total_flights_min_cost
+ORDER BY total_flights_min_cost ASC
+
+
+7.
+MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
+WITH flight, rel, la_airport
+MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
+WITH NODES(path) AS pathNodes, path, la_airport, destAirport
+UNWIND pathNodes AS nodes
+WITH nodes, path, la_airport, destAirport
+WHERE 'Flight' IN LABELS(nodes)
+WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
+RETURN destAirport, path, la_airport, total_flights_min_cost
+ORDER BY total_flights_min_cost ASC
+LIMIT 1
+
+8.
+MATCH (ticket:Ticket {class: "business"})-[rel:ASSIGN]->(flight:Flight)
+WITH ticket.price as business_price, flight
+SET flight.business_price = business_price
+
+MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
+WITH flight, rel, la_airport
+MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
+WITH NODES(path) AS pathNodes, path, la_airport, destAirport
+UNWIND pathNodes AS nodes
+WITH nodes, path, la_airport, destAirport
+WHERE 'Flight' IN LABELS(nodes)
+WITH path, destAirport, la_airport, SUM(nodes.business_price) as total_flights_business_cost
+RETURN destAirport, path, la_airport, total_flights_business_cost
+ORDER BY total_flights_business_cost ASC
+LIMIT 1
+
+
+9.
+MATCH (originAirport:Airport)<-[rOrigin:ORIGIN]-(flight:Flight)-[rDest:DESTINATION]->(destAirport:Airport)
+WITH DISTINCT flight.airline AS airline_name, SIZE(COLLECT(DISTINCT [originAirport.name, destAirport.name])) as number_of_unique_connections
+RETURN airline_name, number_of_unique_connections
+
+
+10.
+MATCH (airport:Airport)
+WITH collect(airport) as airportNodes
+UNWIND airportNodes as n
+UNWIND airportNodes as m
+WITH * WHERE id(n) < id(m)
+MATCH path = ( (n)-[*3..4]-(m) )
+WITH NODES(path) AS pathNodes, path
+UNWIND pathNodes AS nodes
+WITH nodes, path
+WHERE 'Flight' IN LABELS(nodes)
+WITH path, SUM(nodes.min_price) as total_flights_min_cost
+RETURN path, total_flights_min_cost
+ORDER BY total_flights_min_cost ASC
+LIMIT 1

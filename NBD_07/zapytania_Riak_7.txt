@@ -1,0 +1,34 @@
+1.
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Kia", "model": "Ceed",  "milage": 120000, "number_of_owners": 3}'  http://localhost:8098/buckets/s15799/keys/car1
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Toyota", "model": "Corolla",  "milage": 100000, "number_of_owners": 1}'  http://localhost:8098/buckets/s15799/keys/car2
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Volvo", "model": "XC60",  "milage": 50000, "number_of_owners": 1}'  http://localhost:8098/buckets/s15799/keys/car3
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Fiat", "model": "Punto",  "milage": 300000, "number_of_owners": 6}'  http://localhost:8098/buckets/s15799/keys/car4
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "VW", "model": "Passat",  "milage": 210000, "number_of_owners": 8}'  http://localhost:8098/buckets/s15799/keys/car5
+
+2.
+curl –XGET -i http://localhost:8098/buckets/s15799/keys/car1
+
+3.
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Kia", "model": "Ceed",  "milage": 120000, "number_of_owners": 3, "production_date": "2005-10-02"}'  http://localhost:8098/buckets/s15799/keys/car1
+
+4.
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Kia", "model": "Ceed",  "milage": 120000, "production_date": "2005-10-02"}'  http://localhost:8098/buckets/s15799/keys/car1
+
+5.
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Kia", "model": "Ceed",  "milage": 220000, "production_date": "2005-10-02"}'  http://localhost:8098/buckets/s15799/keys/car1
+
+6.
+curl -XDELETE -i http://localhost:8098/buckets/s15799/keys/car2
+
+7.
+curl –XGET -i http://localhost:8098/buckets/s15799/keys/car99
+
+8.
+curl –XPUT -i -H "Content-Type: application/json" -d '{"brand": "Honda"}'  http://localhost:8098/buckets/s15799/keys
+
+9.
+curl –XGET -i http://localhost:8098/buckets/s15799/keys?keys=true
+curl –XGET -i http://localhost:8098/buckets/s15799/keys/BP43cDmBsajlNePiFrg2lK6Edb6
+
+10.
+curl -XDELETE -i http://localhost:8098/buckets/s15799/keys/BP43cDmBsajlNePiFrg2lK6Edb6

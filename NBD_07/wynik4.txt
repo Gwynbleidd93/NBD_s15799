@@ -1,0 +1,22 @@
+HTTP/1.1 204 No Content
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Date: Sat, 12 Jun 2021 10:47:26 GMT
+Content-Type: application/json
+Content-Length: 0
+
+Kontrola:
+$ curl –XGET -i http://localhost:8098/buckets/s15799/keys/car1
+curl: (6) Could not resolve host: –XGET
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvj8Vp2cHEUpkz2Nl2MdjeYsvCwA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Link: </buckets/s15799>; rel="up"
+Last-Modified: Sat, 12 Jun 2021 10:47:26 GMT
+ETag: "4QNDMzIiinLRVd0eb44Drv"
+Date: Sat, 12 Jun 2021 10:48:37 GMT
+Content-Type: application/json
+Content-Length: 85
+
+{"brand": "Kia", "model": "Ceed",  "milage": 120000, "production_date": "2005-10-02"}

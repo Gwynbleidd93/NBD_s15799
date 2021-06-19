@@ -31,51 +31,13 @@
             }
           },
           "relationship": {
-"identity": 66,
-"start": 123,
-"end": 21,
-"type": "DESTINATION",
-"properties": {
-"min_price": 86.25
-            }
-          },
-          "end": {
-"identity": 123,
-"labels": [
-              "Flight"
-            ],
-"properties": {
-"date": "11/30/2015 04:08:17",
-"duration": 23,
-"min_price": 86.25,
-"distance": 108,
-"business_price": 115,
-"airline": "19977"
-            }
-          }
-        },
-        {
-          "start": {
-"identity": 123,
-"labels": [
-              "Flight"
-            ],
-"properties": {
-"date": "11/30/2015 04:08:17",
-"duration": 23,
-"min_price": 86.25,
-"distance": 108,
-"business_price": 115,
-"airline": "19977"
-            }
-          },
-          "relationship": {
-"identity": 65,
-"start": 123,
+"identity": 1584,
+"start": 21,
 "end": 7,
-"type": "ORIGIN",
+"type": "HAS_CONNECTION",
 "properties": {
-"min_price": 86.25
+"min_price": 88.5,
+"business_price": 118
             }
           },
           "end": {
@@ -99,51 +61,13 @@
             }
           },
           "relationship": {
-"identity": 975,
-"start": 851,
-"end": 7,
-"type": "ORIGIN",
-"properties": {
-"min_price": 108.0
-            }
-          },
-          "end": {
-"identity": 851,
-"labels": [
-              "Flight"
-            ],
-"properties": {
-"date": "11/17/2015 16:11:47",
-"duration": 23,
-"min_price": 108.0,
-"distance": 137,
-"business_price": 144,
-"airline": "20304"
-            }
-          }
-        },
-        {
-          "start": {
-"identity": 851,
-"labels": [
-              "Flight"
-            ],
-"properties": {
-"date": "11/17/2015 16:11:47",
-"duration": 23,
-"min_price": 108.0,
-"distance": 137,
-"business_price": 144,
-"airline": "20304"
-            }
-          },
-          "relationship": {
-"identity": 976,
-"start": 851,
+"identity": 1816,
+"start": 7,
 "end": 68,
-"type": "DESTINATION",
+"type": "HAS_CONNECTION",
 "properties": {
-"min_price": 108.0
+"min_price": 108.0,
+"business_price": 144
             }
           },
           "end": {
@@ -157,8 +81,13 @@
           }
         }
       ],
-"length": 4.0
+"length": 2.0
     },
-    "total_flights_min_cost": 194.25
+    "total_min_price": 196.5,
+    "distinct_path_part_1": [
+      "MSN",
+      "ORD",
+      "GRR"
+    ]
   }
 ]

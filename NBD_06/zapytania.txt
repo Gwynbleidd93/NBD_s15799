@@ -28,61 +28,48 @@ MATCH (ticket:Ticket)-[rel:ASSIGN]->(flight:Flight)
 WITH MIN(ticket.price) as min_price, flight
 SET flight.min_price = min_price
 
-
-MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
-WITH flight, rel, la_airport
-MATCH path = ((flight)-[r*..3]-(destAirport:Airport))
-WITH NODES(path) AS pathNodes, path, la_airport, destAirport
-UNWIND pathNodes AS nodes
-WITH nodes, path, la_airport, destAirport
-WHERE 'Flight' IN LABELS(nodes)
-WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
-WHERE total_flights_min_cost < 3000
-RETURN destAirport, path, total_flights_min_cost
-ORDER BY total_flights_min_cost
-
-
-
-6.
-MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
-WITH flight, rel, la_airport
-MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
-WITH NODES(path) AS pathNodes, path, la_airport, destAirport
-UNWIND pathNodes AS nodes
-WITH nodes, path, la_airport, destAirport
-WHERE 'Flight' IN LABELS(nodes)
-WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
-RETURN destAirport, path, la_airport, total_flights_min_cost
-ORDER BY total_flights_min_cost ASC
-
-
-7.
-MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
-WITH flight, rel, la_airport
-MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
-WITH NODES(path) AS pathNodes, path, la_airport, destAirport
-UNWIND pathNodes AS nodes
-WITH nodes, path, la_airport, destAirport
-WHERE 'Flight' IN LABELS(nodes)
-WITH path, destAirport, la_airport, SUM(nodes.min_price) as total_flights_min_cost
-RETURN destAirport, path, la_airport, total_flights_min_cost
-ORDER BY total_flights_min_cost ASC
-LIMIT 1
-
-8.
 MATCH (ticket:Ticket {class: "business"})-[rel:ASSIGN]->(flight:Flight)
 WITH ticket.price as business_price, flight
 SET flight.business_price = business_price
 
-MATCH (flight:Flight)-[rel:ORIGIN]->(la_airport:Airport {name: "LAX"})
-WITH flight, rel, la_airport
-MATCH path = ((flight)-[r*..7]-(destAirport:Airport {name: "DAY"}))
-WITH NODES(path) AS pathNodes, path, la_airport, destAirport
-UNWIND pathNodes AS nodes
-WITH nodes, path, la_airport, destAirport
-WHERE 'Flight' IN LABELS(nodes)
-WITH path, destAirport, la_airport, SUM(nodes.business_price) as total_flights_business_cost
-RETURN destAirport, path, la_airport, total_flights_business_cost
+MATCH (airportOrigin:Airport)<-[rOrigin:ORIGIN]-(flight:Flight)-[rDest:DESTINATION]->(airportDest:Airport)
+CREATE (airportOrigin)-[r:HAS_CONNECTION {min_price: flight.min_price, business_price: flight.business_price} ]->(airportDest)
+
+
+MATCH path = (la_airport:Airport {name: "LAX"})-[rel:HAS_CONNECTION*..3]->(airport:Airport)
+WITH RELATIONSHIPS(path) AS pathRelations, path, airport
+UNWIND pathRelations AS rels
+WITH path, airport, SUM(rels.min_price) as total_flights_min_cost
+WHERE total_flights_min_cost < 3000
+RETURN airport, path, total_flights_min_cost
+ORDER BY total_flights_min_cost
+
+
+6.
+MATCH path = (la_airport:Airport {name: "LAX"})-[rel:HAS_CONNECTION*..5]->(airport:Airport {name: "DAY"})
+WITH RELATIONSHIPS(path) AS pathRelations, path
+UNWIND pathRelations AS rels
+WITH path, SUM(rels.min_price) as total_flights_min_cost
+RETURN path, total_flights_min_cost
+ORDER BY total_flights_min_cost ASC
+
+
+7.
+MATCH path = (la_airport:Airport {name: "LAX"})-[rel:HAS_CONNECTION*..5]->(airport:Airport {name: "DAY"})
+WITH RELATIONSHIPS(path) AS pathRelations, path
+UNWIND pathRelations AS rels
+WITH path, SUM(rels.min_price) as total_flights_min_cost
+RETURN path, total_flights_min_cost
+ORDER BY total_flights_min_cost ASC
+LIMIT 1
+
+
+8.
+MATCH path = (la_airport:Airport {name: "LAX"})-[rel:HAS_CONNECTION*..5]->(airport:Airport {name: "DAY"})
+WITH RELATIONSHIPS(path) AS pathRelations, path
+UNWIND pathRelations AS rels
+WITH path, SUM(rels.business_price) as total_flights_business_cost
+RETURN path, total_flights_business_cost
 ORDER BY total_flights_business_cost ASC
 LIMIT 1
 
@@ -94,17 +81,10 @@ RETURN airline_name, number_of_unique_connections
 
 
 10.
-MATCH (airport:Airport)
-WITH collect(airport) as airportNodes
-UNWIND airportNodes as n
-UNWIND airportNodes as m
-WITH * WHERE id(n) < id(m)
-MATCH path = ( (n)-[*3..4]-(m) )
-WITH NODES(path) AS pathNodes, path
-UNWIND pathNodes AS nodes
-WITH nodes, path
-WHERE 'Flight' IN LABELS(nodes)
-WITH path, SUM(nodes.min_price) as total_flights_min_cost
-RETURN path, total_flights_min_cost
-ORDER BY total_flights_min_cost ASC
+MATCH path = ((airport_1:Airport)-[r_1:HAS_CONNECTION]->(airport_2:Airport)-[r_2:HAS_CONNECTION]->(airport_3:Airport))
+WHERE airport_1.name <> airport_3.name
+WITH DISTINCT [airport_1.name, airport_2.name, airport_3.name] as distinct_path_part_1, path, (r_1.min_price + r_2.min_price) as total_min_price
+RETURN path, total_min_price, distinct_path_part_1
+ORDER BY total_min_price
 LIMIT 1
+
